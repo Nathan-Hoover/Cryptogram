@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -6,60 +5,77 @@ import java.awt.event.ActionEvent;
 
 public class Cryptogram extends JFrame {
 
-	JLabel l1,l2;
-	JTextField tf1,tf2;
-	JButton b1,b2;
+	private JFrame frame;
+	private JPanel panel1, panel2, panel3, panel4;
+	private JLabel replace, convertedLabel, changedLabel, with;
+	private JTextField rtf, wtf;
+	private JButton change;
+	private JMenuBar menuBar;
+	private JMenu menu, anothermenu;
+	private JMenuItem menuItem;
 
 	public static void main(String[] args) {
+		StringConverter objectArray = new StringConverter();
+		objectArray.dataStart("tell me a secret and convert it");
 
-	// TODO, add your application code
-		new Cryptogram();
+		new Cryptogram(objectArray);
 	}
 
-	public Cryptogram(){
-		JFrame jf=new JFrame();
-		jf.setTitle("My frame");
-		jf.setSize(500,300);
-	
-		JLabel l1=new JLabel("Warning!");
-		JLabel l2=new JLabel("The buttons make sound!");
-	
-		JTextField tf1=new JTextField(10);
-		JTextField tf2=new JTextField(5);
-	
-		JButton b1=new JButton("Push me!");
-		JButton b2=new JButton("Dont push me!");
-	
-		tf1.setText("I can be changed");
-	
-		tf2.setText("I cant be changed");
-		tf2.setEditable(false);
-	
-		Container pane=jf.getContentPane();
-		pane.setLayout(new GridLayout(3,2) );
-	
-		pane.add(l1);
-		pane.add(l2);
-		pane.add(tf1);
-		pane.add(tf2);
-		pane.add(b1);
-		pane.add(b2);
-	
-		b2.addActionListener(new ActionListener() {
+	public Cryptogram(final StringConverter object){
+		JFrame jf = new JFrame();
+		jf.setTitle("Cryptogram");
+		jf.setSize(250,150);
+		jf.setLocationRelativeTo(null);
+
+/////////////////////////////////////////////////////////////////////
+		menuBar = new JMenuBar();
+		menu = new JMenu("Level");
+		menuBar.add(menu);
+		anothermenu = new JMenu("Options");
+		menuBar.add(anothermenu);
+		jf.setJMenuBar(menuBar);
+
+		panel1 = new JPanel();
+		convertedLabel = new JLabel(object.getconvertedString());
+		panel1.add(convertedLabel);
+		
+		panel2 = new JPanel();
+		changedLabel = new JLabel(object.getchangedString());
+		panel2.add(changedLabel);
+		
+		panel3 = new JPanel();
+		replace = new JLabel("Replace");
+		rtf = new JTextField("", 1);
+		with = new JLabel("With");
+		wtf = new JTextField("", 1);
+		change = new JButton("Change");
+		panel3.add(replace);
+		panel3.add(rtf);
+		panel3.add(with);
+		panel3.add(wtf);
+		panel3.add(change);
+
+		panel4 = new JPanel();
+		panel4.add(panel1);
+		panel4.add(panel2);
+		panel4.add(panel3);
+		
+		Container pane = jf.getContentPane();
+		panel4.setLayout(new BoxLayout(panel4, BoxLayout.PAGE_AXIS));
+		
+		pane.add(panel4);
+
+/////////////////////////////////////////////////////////////////////
+
+		change.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				//Execute when button is pressed
-				for(int looper = 0; looper < 1000; looper++){
-					Toolkit.getDefaultToolkit().beep();
-				}
+				object.changeChar(rtf.getText().charAt(0), wtf.getText().charAt(0));
+				changedLabel.setText(object.getchangedString());
 			}
-		});      
-	
-		b1.addActionListener(new ActionListener() {	 
-			public void actionPerformed(ActionEvent e){
-				//Execute when button is pressed
-				Toolkit.getDefaultToolkit().beep();
-			}
-		});      
+		});     
+		
+/////////////////////////////////////////////////////////////////////
+
 		jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
 		jf.setVisible(true);
 	
