@@ -16,7 +16,7 @@ public class StringConverter{
 		originalString.append(inputString);
 		convertedString.append(inputString);
 		convert();
-		changedString = convertedString;
+		changedString.append(convertedString.toString());
 	}
 
 	String getchangedString(){
