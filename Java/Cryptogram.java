@@ -2,9 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.*;
 
 public class Cryptogram extends JFrame {
-
+	String fileName = "temp.txt";
+	String line = null;
 	private JFrame frame;
 	private JPanel panel1, panel2, panel3, panel4;
 	private JLabel replace, convertedLabel, changedLabel, with;
@@ -26,7 +28,24 @@ public class Cryptogram extends JFrame {
 		jf.setTitle("Cryptogram");
 		jf.setSize(400,150);
 		jf.setLocationRelativeTo(null);
+/////////////////////////////////////////////////////////////////////
+//The File code
+	 try {
+	 
+		      File file = new File(fileName);
+	 
+		      if (file.createNewFile()){
+		        System.out.println("File is created!");
+		      }else{
+		        System.out.println("File already exists.");
+		      }
+	 
+	    	} catch (IOException e) {
+		      e.printStackTrace();
+		}
+	    
 
+//End of File code
 /////////////////////////////////////////////////////////////////////
 //The Menu Bar Code
 		menuBar = new JMenuBar();
